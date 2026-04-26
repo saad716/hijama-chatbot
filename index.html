@@ -8,22 +8,16 @@
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html {
-    height: 100%;
-    height: 100dvh;
-  }
-
-  body {
+  html, body {
     height: 100%;
     height: 100dvh;
     font-family: 'DM Sans', sans-serif;
     background: #eef4ee;
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
   }
 
-  /* ── SHELL fills entire viewport like WhatsApp ── */
+  body { display: flex; flex-direction: column; }
+
   .shell {
     width: 100%;
     height: 100%;
@@ -34,7 +28,6 @@
     background: #fff;
   }
 
-  /* On desktop: center it like a card */
   @media (min-width: 600px) {
     body {
       align-items: center;
@@ -54,26 +47,19 @@
     }
   }
 
-  /* ── HEADER ── */
+  /* HEADER */
   .hdr {
     background: linear-gradient(135deg, #163d27 0%, #1a4a30 45%, #2d6e47 100%);
     padding: 14px 16px 13px;
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
-    /* Safe area for iPhone notch */
     padding-top: calc(14px + env(safe-area-inset-top));
+    display: flex; align-items: center; gap: 11px;
+    flex-shrink: 0; position: relative; overflow: hidden;
   }
   .hdr::before {
-    content: '';
-    position: absolute; top: -35px; right: -35px;
+    content: ''; position: absolute; top: -35px; right: -35px;
     width: 120px; height: 120px; border-radius: 50%;
     background: rgba(255,255,255,0.04);
   }
-
   .av {
     width: 42px; height: 42px; border-radius: 50%;
     background: rgba(255,255,255,0.12);
@@ -87,7 +73,6 @@
     width: 10px; height: 10px; border-radius: 50%;
     background: #5cdb95; border: 2px solid #1a4a30;
   }
-
   .hdr-info { flex: 1; position: relative; z-index: 1; min-width: 0; }
   .hdr-name {
     font-family: 'Playfair Display', serif;
@@ -107,12 +92,10 @@
     position: relative; z-index: 1; white-space: nowrap; flex-shrink: 0;
   }
 
-  /* ── TRUST BAR ── */
+  /* TRUST BAR */
   .trust {
-    background: #f7fbf7;
-    border-bottom: 1px solid #e2ede6;
-    padding: 6px 14px;
-    display: flex; gap: 0; flex-shrink: 0;
+    background: #f7fbf7; border-bottom: 1px solid #e2ede6;
+    padding: 6px 14px; display: flex; flex-shrink: 0;
     overflow-x: auto; -webkit-overflow-scrolling: touch;
   }
   .trust::-webkit-scrollbar { display: none; }
@@ -123,7 +106,7 @@
   }
   .trust-item span { color: #777; font-weight: 400; }
 
-  /* ── BISMILLAH ── */
+  /* BISMILLAH */
   .bism {
     text-align: center; padding: 7px 0 2px;
     font-size: 12px; color: #2d6e47;
@@ -131,20 +114,25 @@
     font-weight: 300; flex-shrink: 0;
   }
 
-  /* ── MESSAGES — scrollable middle ── */
+  /* MESSAGES */
   .msgs {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
+    flex: 1; overflow-y: auto; overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     padding: 12px 12px 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
+    display: flex; flex-direction: column; gap: 11px;
     overscroll-behavior: contain;
   }
   .msgs::-webkit-scrollbar { width: 3px; }
   .msgs::-webkit-scrollbar-thumb { background: rgba(26,74,48,0.12); border-radius: 2px; }
+
+  /* Empty state */
+  .empty {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px; opacity: 0.35; pointer-events: none; padding-bottom: 40px;
+  }
+  .empty svg { width: 44px; height: 44px; }
+  .empty p { font-size: 13px; color: #2d6e47; text-align: center; line-height: 1.6; }
 
   .msg { display: flex; gap: 7px; animation: up 0.28s ease; }
   .msg.u { flex-direction: row-reverse; }
@@ -153,20 +141,14 @@
   .mav {
     width: 28px; height: 28px; border-radius: 50%;
     flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-    font-weight: 500; margin-top: 2px; align-self: flex-end;
+    font-weight: 500; align-self: flex-end;
   }
-  .mav.b {
-    background: linear-gradient(135deg, #163d27, #2d6e47);
-    color: #fff; font-family: 'Playfair Display', serif; font-size: 12px;
-  }
+  .mav.b { background: linear-gradient(135deg, #163d27, #2d6e47); color: #fff; font-family: 'Playfair Display', serif; font-size: 12px; }
   .mav.u { background: #e6f4ec; color: #2d6e47; font-size: 11px; }
 
   .bub {
-    max-width: 80%;
-    padding: 10px 13px;
-    border-radius: 18px;
-    font-size: 14px; line-height: 1.6; font-weight: 400;
-    word-break: break-word;
+    max-width: 80%; padding: 10px 13px; border-radius: 18px;
+    font-size: 14px; line-height: 1.6; font-weight: 400; word-break: break-word;
   }
   .bub.b {
     background: #f4f9f5; border: 1px solid #d6eadc;
@@ -179,66 +161,7 @@
   .bub strong { color: #1a4a30; font-weight: 600; }
   .bub.u strong { color: #a8e6c1; }
 
-  /* ── QUICK REPLIES ── */
-  .qrs {
-    display: flex; flex-wrap: wrap; gap: 6px;
-    padding: 6px 12px 6px; flex-shrink: 0;
-  }
-  .qr {
-    font-size: 12px; padding: 7px 12px;
-    background: #fff; border: 1px solid #c4dccb;
-    border-radius: 20px; color: #1a4a30;
-    cursor: pointer; font-family: 'DM Sans', sans-serif;
-    font-weight: 400; transition: all 0.15s; line-height: 1;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .qr:active { background: #e8f5ec; border-color: #2d6e47; transform: scale(0.97); }
-
-  /* ── INPUT AREA — sticks to bottom ── */
-  .inp-area {
-    padding: 8px 12px;
-    padding-bottom: calc(8px + env(safe-area-inset-bottom));
-    border-top: 1px solid #e2ede6;
-    background: #f7fbf7;
-    flex-shrink: 0;
-  }
-  .inp-row {
-    display: flex; align-items: center; gap: 8px;
-    background: #fff; border: 1.5px solid #cde0d4;
-    border-radius: 50px; padding: 8px 8px 8px 16px;
-    transition: border-color 0.2s;
-  }
-  .inp-row:focus-within {
-    border-color: #2d6e47;
-    box-shadow: 0 0 0 3px rgba(45,110,71,0.07);
-  }
-  .inp-row input {
-    flex: 1; background: none; border: none; outline: none;
-    color: #1c3828; font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 400; caret-color: #2d6e47;
-    min-width: 0;
-    /* Prevent zoom on iOS */
-    font-size: 16px;
-  }
-  .inp-row input::placeholder { color: #abc8b5; }
-
-  .send-btn {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: linear-gradient(135deg, #1a4a30, #2d6e47);
-    border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: opacity 0.15s, transform 0.12s; flex-shrink: 0;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .send-btn:active { opacity: 0.8; transform: scale(0.94); }
-  .send-btn svg { width: 16px; height: 16px; }
-
-  .inp-footer {
-    text-align: center; margin-top: 5px;
-    font-size: 10px; color: #bbb; letter-spacing: 0.02em;
-  }
-
-  /* ── TYPING ── */
+  /* TYPING */
   .tdots {
     display: flex; gap: 4px; align-items: center;
     padding: 11px 14px; background: #f4f9f5;
@@ -253,7 +176,43 @@
   .d:nth-child(3) { animation-delay: .4s; }
   @keyframes bop { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
 
-  .hidden { display: none !important; }
+  /* INPUT */
+  .inp-area {
+    padding: 8px 12px;
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+    border-top: 1px solid #e2ede6;
+    background: #f7fbf7; flex-shrink: 0;
+  }
+  .inp-row {
+    display: flex; align-items: center; gap: 8px;
+    background: #fff; border: 1.5px solid #cde0d4;
+    border-radius: 50px; padding: 8px 8px 8px 16px;
+    transition: border-color 0.2s;
+  }
+  .inp-row:focus-within {
+    border-color: #2d6e47;
+    box-shadow: 0 0 0 3px rgba(45,110,71,0.07);
+  }
+  .inp-row input {
+    flex: 1; background: none; border: none; outline: none;
+    color: #1c3828; font-family: 'DM Sans', sans-serif;
+    font-size: 16px; font-weight: 400; caret-color: #2d6e47; min-width: 0;
+  }
+  .inp-row input::placeholder { color: #abc8b5; }
+  .send-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: linear-gradient(135deg, #1a4a30, #2d6e47);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity 0.15s, transform 0.12s; flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .send-btn:active { opacity: 0.8; transform: scale(0.94); }
+  .send-btn svg { width: 16px; height: 16px; }
+  .inp-footer {
+    text-align: center; margin-top: 5px;
+    font-size: 10px; color: #bbb; letter-spacing: 0.02em;
+  }
 </style>
 </head>
 <body>
@@ -289,45 +248,14 @@
 
   <!-- MESSAGES -->
   <div class="msgs" id="msgs">
-
-    <div class="msg">
-      <div class="mav b">H</div>
-      <div class="bub b">
-        As-salamu alaykum wa rahmatullahi wa barakatuh 🌿<br><br>
-        Welcome to <strong>Hijama Nation Academy</strong> — the world's leading accredited online Hijama Diploma programme.<br><br>
-        I'm your Diploma Advisor. What brought you here today?
-      </div>
+    <div class="empty" id="empty-state">
+      <svg viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="20" stroke="#2d6e47" stroke-width="1.5" opacity="0.6"/>
+        <path d="M22 10c-5 0-9 4-9 8.5 0 2.5 1.2 4.7 3 6.2C13 26.5 11 30 11 34h22c0-4-2-7.5-5-9.3 1.8-1.5 3-3.7 3-6.2C31 14 27 10 22 10z" fill="#2d6e47" opacity="0.15"/>
+        <circle cx="22" cy="18" r="3.5" fill="#2d6e47" opacity="0.35"/>
+      </svg>
+      <p>As-salamu alaykum 🌿<br>Ask me anything about the Diploma</p>
     </div>
-
-    <div class="msg u">
-      <div class="mav u">👤</div>
-      <div class="bub u">I saw your ad and I'm curious about the course.</div>
-    </div>
-
-    <div class="msg" id="t1">
-      <div class="mav b">H</div>
-      <div class="tdots"><div class="d"></div><div class="d"></div><div class="d"></div></div>
-    </div>
-
-    <div class="msg hidden" id="r1">
-      <div class="mav b">H</div>
-      <div class="bub b">
-        Alhamdulillah — you've come to exactly the right place! 🌱<br><br>
-        Our <strong>Accredited Higher Diploma in Hijama Cupping Therapy (Level 5)</strong> has transformed lives across 40+ countries — from complete beginners to healthcare professionals.<br><br>
-        Quick question — what's your main goal?
-      </div>
-    </div>
-
-  </div>
-
-  <!-- QUICK REPLIES -->
-  <div class="qrs" id="qr-area">
-    <button class="qr" onclick="sendQ('I want to start a new career in Hijama')">💼 New Career</button>
-    <button class="qr" onclick="sendQ('I want to help my family with natural healing')">🏡 Help Family</button>
-    <button class="qr" onclick="sendQ('I want to earn income from home')">💰 Earn Income</button>
-    <button class="qr" onclick="sendQ('What is the course fee?')">📋 Course Fee</button>
-    <button class="qr" onclick="sendQ('Is this course right for me?')">🤔 Am I Eligible?</button>
-    <button class="qr" onclick="sendQ('How long does the course take?')">⏱ Duration</button>
   </div>
 
   <!-- INPUT -->
@@ -354,29 +282,24 @@
 </div>
 
 <script>
-  /* ── ONLY THING YOU NEED TO CHANGE ── */
+  /* ── CHANGE THIS TO YOUR N8N WEBHOOK URL ── */
   const WEBHOOK_URL = 'YOUR_N8N_WEBHOOK_URL_HERE';
 
-  /* ── Initial simulated reply ── */
-  setTimeout(() => {
-    document.getElementById('t1')?.remove();
-    document.getElementById('r1')?.classList.remove('hidden');
-    scrollB();
-  }, 1600);
-
-  /* ── Scroll to bottom ── */
   function scrollB() {
     const el = document.getElementById('msgs');
     setTimeout(() => { el.scrollTop = el.scrollHeight; }, 30);
   }
 
-  /* ── Escape HTML to prevent injection ── */
   function esc(s) {
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
-  /* ── Append user bubble ── */
+  function removeEmpty() {
+    document.getElementById('empty-state')?.remove();
+  }
+
   function appendUser(txt) {
+    removeEmpty();
     const m = document.getElementById('msgs');
     const d = document.createElement('div');
     d.className = 'msg u';
@@ -384,7 +307,6 @@
     m.appendChild(d);
   }
 
-  /* ── Append typing indicator ── */
   function appendTyping() {
     const m = document.getElementById('msgs');
     const id = 'ty' + Date.now();
@@ -395,7 +317,6 @@
     return id;
   }
 
-  /* ── Append bot bubble — accepts plain text or HTML from n8n ── */
   function appendBot(content) {
     const m = document.getElementById('msgs');
     const d = document.createElement('div');
@@ -405,15 +326,8 @@
     scrollB();
   }
 
-  /* ── Quick reply buttons ── */
-  function sendQ(txt) {
-    document.getElementById('inp').value = txt;
-    send();
-  }
-
   function onKey(e) { if (e.key === 'Enter') send(); }
 
-  /* ── Main send function ── */
   async function send() {
     const inp = document.getElementById('inp');
     const txt = inp.value.trim();
@@ -439,23 +353,19 @@
       const data = await res.json();
       document.getElementById(tid)?.remove();
 
-      /* n8n should return: { "reply": "your message" }
-         Also supports: text, message, output as fallback */
       const reply = data.reply || data.text || data.message || data.output
-        || 'JazakAllah Khair! Give me a moment to get you the right information.';
+        || 'JazakAllah Khair! Give me a moment.';
 
       appendBot(reply);
 
     } catch (err) {
       document.getElementById(tid)?.remove();
-      appendBot('Sorry, there was a connection issue. Please try again in a moment.');
+      appendBot('Sorry, there was a connection issue. Please try again.');
     }
   }
 
-  /* ── Fix mobile keyboard pushing layout ── */
-  window.addEventListener('resize', () => { scrollB(); });
+  window.addEventListener('resize', scrollB);
 
-  /* ── Prevent body scroll on mobile ── */
   document.body.addEventListener('touchmove', (e) => {
     if (!e.target.closest('.msgs')) e.preventDefault();
   }, { passive: false });
