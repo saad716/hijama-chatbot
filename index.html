@@ -127,12 +127,30 @@
 
   /* Empty state */
   .empty {
-    flex: 1; display: flex; flex-direction: column;
+    display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 10px; opacity: 0.35; pointer-events: none; padding-bottom: 40px;
+    gap: 10px; opacity: 0.35; pointer-events: none;
+    padding: 30px 20px;
   }
   .empty svg { width: 44px; height: 44px; }
   .empty p { font-size: 13px; color: #2d6e47; text-align: center; line-height: 1.6; }
+
+  /* QUICK REPLY CHIPS */
+  .chips {
+    display: flex; flex-wrap: wrap; gap: 7px;
+    padding: 4px 0 8px;
+  }
+  .chip {
+    background: #f0f9f3; border: 1px solid #c0ddc9;
+    color: #1a4a30; font-size: 12px; font-weight: 500;
+    padding: 6px 12px; border-radius: 20px;
+    cursor: pointer; transition: all 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .chip:hover { background: #2d6e47; color: #fff; border-color: #2d6e47; }
+  .chip:active { transform: scale(0.96); }
 
   .msg { display: flex; gap: 7px; animation: up 0.28s ease; }
   .msg.u { flex-direction: row-reverse; }
@@ -148,7 +166,7 @@
 
   .bub {
     max-width: 80%; padding: 10px 13px; border-radius: 18px;
-    font-size: 14px; line-height: 1.6; font-weight: 400; word-break: break-word;
+    font-size: 14px; line-height: 1.65; font-weight: 400; word-break: break-word;
   }
   .bub.b {
     background: #f4f9f5; border: 1px solid #d6eadc;
@@ -158,8 +176,57 @@
     background: linear-gradient(135deg, #1a4a30, #2d6e47);
     color: #fff; border-bottom-right-radius: 4px;
   }
-  .bub strong { color: #1a4a30; font-weight: 600; }
-  .bub.u strong { color: #a8e6c1; }
+
+  /* ── MARKDOWN STYLES inside bot bubble ── */
+  .bub.b strong { color: #163d27; font-weight: 600; }
+  .bub.b em { font-style: italic; color: #2d6e47; }
+
+  .bub.b ul, .bub.b ol {
+    margin: 6px 0 4px 0;
+    padding-left: 18px;
+  }
+  .bub.b li {
+    margin-bottom: 4px;
+    line-height: 1.55;
+  }
+  .bub.b ul li { list-style-type: disc; }
+  .bub.b ol li { list-style-type: decimal; }
+
+  .bub.b p { margin-bottom: 6px; }
+  .bub.b p:last-child { margin-bottom: 0; }
+
+  .bub.b h1, .bub.b h2, .bub.b h3 {
+    font-family: 'Playfair Display', serif;
+    color: #163d27; margin: 8px 0 4px; line-height: 1.3;
+  }
+  .bub.b h1 { font-size: 16px; }
+  .bub.b h2 { font-size: 15px; }
+  .bub.b h3 { font-size: 14px; font-weight: 600; }
+
+  .bub.b a {
+    color: #1a7a46; text-decoration: underline;
+    text-underline-offset: 2px; word-break: break-all;
+  }
+  .bub.b a:hover { color: #163d27; }
+
+  .bub.b code {
+    background: #e4f1e9; color: #163d27;
+    border-radius: 4px; padding: 1px 5px;
+    font-size: 12px; font-family: monospace;
+  }
+
+  .bub.b blockquote {
+    border-left: 3px solid #2d6e47;
+    padding-left: 10px; margin: 6px 0;
+    color: #4a7a5e; font-style: italic;
+  }
+
+  .bub.b hr {
+    border: none; border-top: 1px solid #d6eadc; margin: 8px 0;
+  }
+
+  /* Separator between paragraphs in bot message */
+  .bub.b .md-section + .md-section { margin-top: 4px; }
 
   /* TYPING */
   .tdots {
@@ -175,6 +242,21 @@
   .d:nth-child(2) { animation-delay: .2s; }
   .d:nth-child(3) { animation-delay: .4s; }
   @keyframes bop { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+
+  /* Error bubble */
+  .bub.err {
+    background: #fff5f5; border: 1px solid #f5c6c6;
+    color: #7a2020; border-bottom-left-radius: 4px;
+  }
+  .retry-btn {
+    display: inline-block; margin-top: 6px;
+    background: #fff; border: 1px solid #e0b0b0;
+    color: #7a2020; font-size: 12px; padding: 4px 10px;
+    border-radius: 12px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.15s;
+  }
+  .retry-btn:hover { background: #7a2020; color: #fff; }
 
   /* INPUT */
   .inp-area {
@@ -207,7 +289,8 @@
     transition: opacity 0.15s, transform 0.12s; flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
   }
-  .send-btn:active { opacity: 0.8; transform: scale(0.94); }
+  .send-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .send-btn:not(:disabled):active { opacity: 0.8; transform: scale(0.94); }
   .send-btn svg { width: 16px; height: 16px; }
   .inp-footer {
     text-align: center; margin-top: 5px;
@@ -256,6 +339,16 @@
       </svg>
       <p>As-salamu alaykum 🌿<br>Ask me anything about the Diploma</p>
     </div>
+
+    <!-- QUICK REPLY CHIPS -->
+    <div class="chips" id="chips">
+      <button class="chip" onclick="sendChip(this)">💼 Course overview</button>
+      <button class="chip" onclick="sendChip(this)">💰 How much can I earn?</button>
+      <button class="chip" onclick="sendChip(this)">📜 Is it accredited?</button>
+      <button class="chip" onclick="sendChip(this)">🕐 How long does it take?</button>
+      <button class="chip" onclick="sendChip(this)">💳 Payment options</button>
+      <button class="chip" onclick="sendChip(this)">🩺 Do I need experience?</button>
+    </div>
   </div>
 
   <!-- INPUT -->
@@ -270,7 +363,7 @@
         autocorrect="off"
         autocapitalize="sentences"
       />
-      <button class="send-btn" onclick="send()" aria-label="Send">
+      <button class="send-btn" id="send-btn" onclick="send()" aria-label="Send">
         <svg viewBox="0 0 24 24" fill="none">
           <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -282,29 +375,115 @@
 </div>
 
 <script>
-  /* ── CHANGE THIS TO YOUR N8N WEBHOOK URL ── */
+  /* ── WEBHOOK URL ── */
   const WEBHOOK_URL = 'https://ai.botyama.com/webhook/BOT TEST';
 
+  /* ── SESSION ID: generated once per page load so memory works across messages ── */
+  const SESSION_ID = 'hn_' + Math.random().toString(36).slice(2, 11) + '_' + Date.now();
+
+  let isBusy = false;
+  let lastUserMessage = '';
+
+  /* ─── MARKDOWN PARSER ─── */
+  function parseMarkdown(raw) {
+    let html = raw;
+
+    /* Escape HTML first to prevent injection */
+    html = html
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    /* Re-allow intentional formatting */
+
+    /* Headers */
+    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+    /* Horizontal rule */
+    html = html.replace(/^---+$/gm, '<hr>');
+
+    /* Bold and italic */
+    html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+
+    /* Inline code */
+    html = html.replace(/`(.+?)`/g, '<code>$1</code>');
+
+    /* Blockquote */
+    html = html.replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
+
+    /* Clickable URLs — plain URLs and markdown links */
+    html = html.replace(
+      /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener">$1</a>'
+    );
+    html = html.replace(
+      /(?<!["\(>])(https?:\/\/[^\s<"'\)\]]+)/g,
+      '<a href="$1" target="_blank" rel="noopener">$1</a>'
+    );
+
+    /* Unordered lists */
+    html = html.replace(/^[\-\*] (.+)$/gm, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>\n?)+/g, (block) => '<ul>' + block + '</ul>');
+
+    /* Ordered lists */
+    html = html.replace(/^\d+\. (.+)$/gm, '<oli>$1</oli>');
+    html = html.replace(/(<oli>.*<\/oli>\n?)+/g, (block) =>
+      '<ol>' + block.replace(/<\/?oli>/g, (t) => t === '<oli>' ? '<li>' : '</li>') + '</ol>'
+    );
+
+    /* Paragraphs — wrap double-newline-separated text blocks */
+    html = html.replace(/\n{2,}/g, '\n\n');
+    const lines = html.split('\n\n');
+    html = lines.map(line => {
+      const trimmed = line.trim();
+      if (!trimmed) return '';
+      /* Don't wrap block elements in <p> */
+      if (/^<(h[1-3]|ul|ol|blockquote|hr|li)/.test(trimmed)) return trimmed;
+      return '<p>' + trimmed.replace(/\n/g, '<br>') + '</p>';
+    }).filter(Boolean).join('\n');
+
+    return html;
+  }
+
+  /* ─── UTILITIES ─── */
   function scrollB() {
     const el = document.getElementById('msgs');
     setTimeout(() => { el.scrollTop = el.scrollHeight; }, 30);
-  }
-
-  function esc(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
   function removeEmpty() {
     document.getElementById('empty-state')?.remove();
   }
 
+  function removeChips() {
+    document.getElementById('chips')?.remove();
+  }
+
+  function setBusy(state) {
+    isBusy = state;
+    document.getElementById('send-btn').disabled = state;
+    document.getElementById('inp').disabled = state;
+  }
+
+  /* ─── MESSAGE RENDERERS ─── */
   function appendUser(txt) {
     removeEmpty();
+    removeChips();
     const m = document.getElementById('msgs');
     const d = document.createElement('div');
     d.className = 'msg u';
-    d.innerHTML = `<div class="mav u">👤</div><div class="bub u">${esc(txt)}</div>`;
+    d.innerHTML = `<div class="mav u">👤</div><div class="bub u">${escapeHtml(txt)}</div>`;
     m.appendChild(d);
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
   function appendTyping() {
@@ -317,24 +496,59 @@
     return id;
   }
 
-  function appendBot(content) {
+  function appendBot(rawContent) {
     const m = document.getElementById('msgs');
     const d = document.createElement('div');
     d.className = 'msg';
-    d.innerHTML = `<div class="mav b">H</div><div class="bub b">${content}</div>`;
+    const rendered = parseMarkdown(rawContent);
+    d.innerHTML = `<div class="mav b">H</div><div class="bub b">${rendered}</div>`;
     m.appendChild(d);
     scrollB();
   }
 
-  function onKey(e) { if (e.key === 'Enter') send(); }
+  function appendError(userMsg) {
+    const m = document.getElementById('msgs');
+    const d = document.createElement('div');
+    d.className = 'msg';
+    d.innerHTML = `<div class="mav b">H</div><div class="bub err">
+      Sorry, there was a connection issue. Please try again.
+      <br><button class="retry-btn" onclick="retry()">↺ Retry</button>
+    </div>`;
+    m.appendChild(d);
+    scrollB();
+  }
 
-  async function send() {
+  /* ─── RETRY ─── */
+  function retry() {
+    if (!lastUserMessage || isBusy) return;
+    /* Remove the error bubble */
+    const errs = document.querySelectorAll('.bub.err');
+    errs.forEach(e => e.closest('.msg')?.remove());
+    sendMessage(lastUserMessage);
+  }
+
+  /* ─── SEND LOGIC ─── */
+  function onKey(e) { if (e.key === 'Enter' && !isBusy) send(); }
+
+  function sendChip(btn) {
+    const txt = btn.textContent.replace(/^[\u{1F000}-\u{1FFFF}]|^[\u2600-\u27FF]\s*/u, '').trim();
+    btn.disabled = true;
+    sendMessage(txt);
+  }
+
+  function send() {
     const inp = document.getElementById('inp');
     const txt = inp.value.trim();
-    if (!txt) return;
+    if (!txt || isBusy) return;
     inp.value = '';
     inp.focus();
+    sendMessage(txt);
+  }
 
+  async function sendMessage(txt) {
+    if (isBusy) return;
+    lastUserMessage = txt;
+    setBusy(true);
     appendUser(txt);
     const tid = appendTyping();
     scrollB();
@@ -346,21 +560,31 @@
         body: JSON.stringify({
           message: txt,
           source: 'hijama_chatbot',
-          timestamp: new Date().toISOString()
+          sessionId: SESSION_ID        /* ← fixed: same ID for whole conversation */
         })
       });
+
+      if (!res.ok) throw new Error('HTTP ' + res.status);
 
       const data = await res.json();
       document.getElementById(tid)?.remove();
 
-      const reply = data.reply || data.text || data.message || data.output
-        || 'JazakAllah Khair! Give me a moment.';
+      /* Backend returns { message: "..." } — support multiple key names for safety */
+      const reply =
+        data.message ||
+        data.reply   ||
+        data.output  ||
+        data.text    ||
+        'JazakAllah Khair! I received your message.';
 
       appendBot(reply);
 
     } catch (err) {
       document.getElementById(tid)?.remove();
-      appendBot('Sorry, there was a connection issue. Please try again.');
+      appendError(txt);
+    } finally {
+      setBusy(false);
+      document.getElementById('inp').focus();
     }
   }
 
@@ -369,6 +593,11 @@
   document.body.addEventListener('touchmove', (e) => {
     if (!e.target.closest('.msgs')) e.preventDefault();
   }, { passive: false });
+
+  /* Auto-focus on desktop */
+  if (window.innerWidth >= 600) {
+    document.getElementById('inp').focus();
+  }
 </script>
 </body>
 </html>
