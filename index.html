@@ -127,32 +127,35 @@
   .msgs::-webkit-scrollbar { width: 3px; }
   .msgs::-webkit-scrollbar-thumb { background: rgba(26,74,48,0.12); border-radius: 2px; }
 
-  /* Empty state */
-  .empty {
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 10px; opacity: 0.35; pointer-events: none;
-    padding: 30px 20px;
-  }
-  .empty svg { width: 44px; height: 44px; }
-  .empty p { font-size: 13px; color: #2d6e47; text-align: center; line-height: 1.6; }
-
-  /* QUICK REPLY CHIPS */
-  .chips {
-    display: flex; flex-wrap: wrap; gap: 7px;
+  /* ── OPTION BUTTONS (replaces chips) ── */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
     padding: 4px 0 8px;
+    max-width: 86%;
   }
-  .chip {
-    background: #f0f9f3; border: 1px solid #c0ddc9;
-    color: #1a4a30; font-size: 12px; font-weight: 500;
-    padding: 6px 12px; border-radius: 20px;
-    cursor: pointer; transition: all 0.15s;
+  .opt-btn {
+    background: #f0f9f3;
+    border: 1.5px solid #c0ddc9;
+    color: #1a4a30;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.18s;
     -webkit-tap-highlight-color: transparent;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: left;
+    line-height: 1.45;
     font-family: 'DM Sans', sans-serif;
+    display: block;
+    width: 100%;
   }
-  .chip:hover { background: #2d6e47; color: #fff; border-color: #2d6e47; }
-  .chip:active { transform: scale(0.96); }
+  .opt-btn:hover  { background: #2d6e47; color: #fff; border-color: #2d6e47; }
+  .opt-btn:active { transform: scale(0.97); }
+  .opt-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
   .msg { display: flex; gap: 7px; animation: up 0.28s ease; }
   .msg.u { flex-direction: row-reverse; }
@@ -211,7 +214,7 @@
   .retry-btn:hover { background: #7a2020; color: #fff; }
 
   /* ═══════════════════════════════════════
-     CHECKOUT CARD — NEW
+     CHECKOUT CARD
   ═══════════════════════════════════════ */
   .checkout-wrap {
     max-width: 92%;
@@ -227,7 +230,6 @@
     box-shadow: 0 4px 24px rgba(26,74,48,0.10);
   }
 
-  /* Card header */
   .ck-hdr {
     background: linear-gradient(135deg, #163d27 0%, #2d6e47 100%);
     padding: 14px 16px 12px;
@@ -250,7 +252,6 @@
     font-weight: 300;
   }
 
-  /* Plan selector */
   .ck-plans {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 8px; padding: 14px 14px 10px;
@@ -296,7 +297,6 @@
     margin-top: 4px; letter-spacing: 0.04em;
   }
 
-  /* Form fields */
   .ck-fields { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; }
 
   .ck-input {
@@ -314,7 +314,6 @@
   }
   .ck-input::placeholder { color: #a8c8b4; }
 
-  /* Stripe card element */
   .stripe-box {
     border: 1.5px solid #d0e8d8;
     border-radius: 10px; padding: 11px 13px;
@@ -327,13 +326,11 @@
     background: #fff;
   }
 
-  /* Card error */
   .ck-error {
     font-size: 12px; color: #b94040;
     min-height: 16px; padding: 0 2px;
   }
 
-  /* Pay button */
   .ck-pay-btn {
     width: 100%;
     background: linear-gradient(135deg, #163d27, #2d6e47);
@@ -360,7 +357,6 @@
   .ck-pay-btn.loading .btn-label { opacity: 0.7; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Footer */
   .ck-footer {
     text-align: center; padding: 10px 14px 14px;
     font-size: 10px; color: #9ab8a4;
@@ -368,13 +364,11 @@
   }
   .ck-footer svg { width: 11px; height: 11px; opacity: 0.6; }
 
-  /* Divider */
   .ck-divider {
     height: 1px; background: #e8f0eb;
     margin: 10px 14px;
   }
 
-  /* Success bubble */
   .success-bub {
     background: linear-gradient(135deg, #e6f4ec, #f0faf3);
     border: 1.5px solid #a8d8b8;
@@ -446,8 +440,9 @@
       <div class="online-dot"></div>
     </div>
     <div class="hdr-info">
+      <!-- ✏️ CHANGE 1: Updated header name and subtitle -->
       <div class="hdr-name">Hijama Nation Academy</div>
-      <div class="hdr-sub">Diploma Advisor · Responds instantly</div>
+      <div class="hdr-sub">As-salamu alaykum Sister 🤍</div>
     </div>
     <div class="live-pill">● Online</div>
   </div>
@@ -455,8 +450,8 @@
   <!-- TRUST BAR -->
   <div class="trust">
     <div class="trust-item">🎓 <span>Level 5 Accredited</span></div>
-    <div class="trust-item">🌍 <span>40+ Countries</span></div>
-    <div class="trust-item">✅ <span>GRCCT Certified</span></div>
+    <div class="trust-item">🌍 <span>30+ Countries</span></div>
+    <div class="trust-item">👩‍🎓 <span>3,000+ Students</span></div>
     <div class="trust-item">💰 <span>Installments Available</span></div>
   </div>
 
@@ -465,28 +460,13 @@
 
   <!-- MESSAGES -->
   <div class="msgs" id="msgs">
-    <div class="empty" id="empty-state">
-      <svg viewBox="0 0 44 44" fill="none">
-        <circle cx="22" cy="22" r="20" stroke="#2d6e47" stroke-width="1.5" opacity="0.6"/>
-        <path d="M22 10c-5 0-9 4-9 8.5 0 2.5 1.2 4.7 3 6.2C13 26.5 11 30 11 34h22c0-4-2-7.5-5-9.3 1.8-1.5 3-3.7 3-6.2C31 14 27 10 22 10z" fill="#2d6e47" opacity="0.15"/>
-        <circle cx="22" cy="18" r="3.5" fill="#2d6e47" opacity="0.35"/>
-      </svg>
-      <p>As-salamu alaykum 🌿<br>Ask me anything about the Diploma</p>
-    </div>
-    <div class="chips" id="chips">
-      <button class="chip" onclick="sendChip(this)">💼 Course overview</button>
-      <button class="chip" onclick="sendChip(this)">💰 How much can I earn?</button>
-      <button class="chip" onclick="sendChip(this)">📜 Is it accredited?</button>
-      <button class="chip" onclick="sendChip(this)">🕐 How long does it take?</button>
-      <button class="chip" onclick="sendChip(this)">💳 Payment options</button>
-      <button class="chip" onclick="sendChip(this)">🩺 Do I need experience?</button>
-    </div>
+    <!-- ✏️ CHANGE 2: Opening bot message + 5 option buttons render on load via JS -->
   </div>
 
   <!-- INPUT -->
   <div class="inp-area">
     <div class="inp-row">
-      <input type="text" id="inp" placeholder="Type a message..."
+      <input type="text" id="inp" placeholder="Or type your message…"
         onkeydown="onKey(event)" autocomplete="off" autocorrect="off" autocapitalize="sentences"/>
       <button class="send-btn" id="send-btn" onclick="send()" aria-label="Send">
         <svg viewBox="0 0 24 24" fill="none">
@@ -504,7 +484,7 @@
      CONFIGURATION — CHANGE THESE
   ══════════════════════════════════════════ */
   const WEBHOOK_URL        = 'https://ai.botyama.com/webhook/BOT TEST';
-  const STRIPE_PUBLIC_KEY  = 'pk_live_51QCh96Rr6Jjm2unfhnqIpL3qZHlpsyf19SEGxs278rZ8F3AVl79spkdoZm48r5F0UMtP9k9k4qwoUToD6Ud6TMDW0053wpSxGP'; // ← paste your Stripe publishable key
+  const STRIPE_PUBLIC_KEY  = 'pk_live_51QCh96Rr6Jjm2unfhnqIpL3qZHlpsyf19SEGxs278rZ8F3AVl79spkdoZm48r5F0UMtP9k9k4qwoUToD6Ud6TMDW0053wpSxGP';
 
   /* ══════════════════════════════════════════
      SESSION
@@ -523,7 +503,18 @@
   let selectedPlan   = 'Full Payment';
 
   /* ══════════════════════════════════════════
-     MARKDOWN PARSER (unchanged)
+     ✏️ CHANGE 3: 5 OPTION BUTTONS (from the prompt)
+  ══════════════════════════════════════════ */
+  const STARTER_OPTIONS = [
+    "I feel like I'm meant for more… but I don't know where to start",
+    "I want to earn halal income from home without compromising my family",
+    "I want to revive a Sunnah and do something meaningful with my life",
+    "I feel drawn to natural healing and want to help others",
+    "How much is it and are there payment options?"
+  ];
+
+  /* ══════════════════════════════════════════
+     MARKDOWN PARSER
   ══════════════════════════════════════════ */
   function parseMarkdown(raw) {
     let html = raw;
@@ -562,21 +553,65 @@
     const el = document.getElementById('msgs');
     setTimeout(()=>{ el.scrollTop = el.scrollHeight; }, 40);
   }
-  function removeEmpty()  { document.getElementById('empty-state')?.remove(); }
-  function removeChips()  { document.getElementById('chips')?.remove(); }
   function escapeHtml(s)  { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
   function setBusy(state) {
     isBusy = state;
     document.getElementById('send-btn').disabled = state;
     document.getElementById('inp').disabled = state;
+    // Also disable any option buttons still visible
+    document.querySelectorAll('.opt-btn').forEach(b => b.disabled = state);
+  }
+
+  /* ══════════════════════════════════════════
+     ✏️ CHANGE 4: RENDER OPENING GREETING + OPTIONS ON LOAD
+  ══════════════════════════════════════════ */
+  function renderOpening() {
+    const m = document.getElementById('msgs');
+
+    // Bot greeting message
+    const greetDiv = document.createElement('div');
+    greetDiv.className = 'msg';
+    greetDiv.innerHTML = `
+      <div class="mav b">H</div>
+      <div class="bub b">
+        <p>As-salamu alaykum Sister 🤍</p>
+        <p>Tell me… what made you stop and look at this today?</p>
+      </div>
+    `;
+    m.appendChild(greetDiv);
+
+    // Option buttons block (attached under the greeting, no bot avatar)
+    const optsDiv = document.createElement('div');
+    optsDiv.id = 'starter-options';
+    optsDiv.style.cssText = 'padding-left: 35px; display: flex; flex-direction: column; gap: 7px; padding-bottom: 4px;';
+
+    STARTER_OPTIONS.forEach(label => {
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = label;
+      btn.onclick = () => handleOptionClick(label);
+      optsDiv.appendChild(btn);
+    });
+
+    m.appendChild(optsDiv);
+    scrollB();
+  }
+
+  function removeOptions() {
+    document.getElementById('starter-options')?.remove();
+  }
+
+  function handleOptionClick(text) {
+    removeOptions();
+    sendMessage(text);
   }
 
   /* ══════════════════════════════════════════
      MESSAGE RENDERERS
   ══════════════════════════════════════════ */
   function appendUser(txt) {
-    removeEmpty(); removeChips();
+    removeOptions();
     const m = document.getElementById('msgs');
     const d = document.createElement('div');
     d.className = 'msg u';
@@ -625,7 +660,6 @@
      CHECKOUT — RENDER CARD
   ══════════════════════════════════════════ */
   function appendCheckout() {
-    // Only show one checkout at a time
     document.getElementById('checkout-card')?.remove();
 
     const m = document.getElementById('msgs');
@@ -637,13 +671,11 @@
       <div class="checkout-wrap">
         <div class="checkout-card">
 
-          <!-- Header -->
           <div class="ck-hdr">
             <div class="ck-hdr-title">🎓 Enrol in the Level 5 Diploma</div>
             <div class="ck-hdr-sub">Secure checkout · Powered by Stripe</div>
           </div>
 
-          <!-- Plan selector -->
           <div class="ck-plans">
             <div class="ck-plan selected" id="plan-full" onclick="selectPlan('full')">
               <div class="ck-plan-name">Full Payment</div>
@@ -661,7 +693,6 @@
 
           <div class="ck-divider"></div>
 
-          <!-- Form fields -->
           <div class="ck-fields">
             <input class="ck-input" type="text"  id="ck-name"  placeholder="Full Name" autocomplete="name"/>
             <input class="ck-input" type="email" id="ck-email" placeholder="Email Address" autocomplete="email"/>
@@ -671,7 +702,6 @@
 
           <div class="ck-divider"></div>
 
-          <!-- Pay button -->
           <div style="padding: 0 14px;">
             <button class="ck-pay-btn" id="ck-pay-btn" onclick="handlePayment()">
               <div class="spinner"></div>
@@ -679,7 +709,6 @@
             </button>
           </div>
 
-          <!-- Footer -->
           <div class="ck-footer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             256-bit SSL · 90-Day Money Back Guarantee
@@ -690,8 +719,6 @@
     `;
     m.appendChild(wrapper);
     scrollB();
-
-    // Mount Stripe card element
     initStripe();
   }
 
@@ -715,8 +742,6 @@
       }
     });
     cardElement.mount('#stripe-card-element');
-
-    // Focus ring on Stripe element
     cardElement.on('focus', () => document.getElementById('stripe-card-element')?.classList.add('focused'));
     cardElement.on('blur',  () => document.getElementById('stripe-card-element')?.classList.remove('focused'));
     cardElement.on('change', (e) => {
@@ -748,7 +773,6 @@
     const email = document.getElementById('ck-email')?.value.trim();
     const errEl = document.getElementById('ck-error');
 
-    // Basic validation
     if (!name)  { errEl.textContent = 'Please enter your full name.'; return; }
     if (!email || !email.includes('@')) { errEl.textContent = 'Please enter a valid email address.'; return; }
     errEl.textContent = '';
@@ -758,7 +782,6 @@
     btn.classList.add('loading');
 
     try {
-      /* ── STEP 1: Ask n8n to create a Stripe PaymentIntent ── */
       const intentRes = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -774,10 +797,8 @@
 
       if (!intentRes.ok) throw new Error('Could not initiate payment. Please try again.');
       const intentData = await intentRes.json();
-
       if (!intentData.clientSecret) throw new Error('Payment setup failed. Please try again.');
 
-      /* ── STEP 2: Confirm card payment via Stripe.js ── */
       const result = await stripeInstance.confirmCardPayment(intentData.clientSecret, {
         payment_method: {
           card: cardElement,
@@ -792,7 +813,6 @@
         return;
       }
 
-      /* ── STEP 3: Payment successful ── */
       const paymentId = result.paymentIntent.id;
       document.getElementById('checkout-card')?.remove();
       appendSuccess(name, email, selectedAmount, selectedPlan, paymentId);
@@ -835,12 +855,6 @@
   ══════════════════════════════════════════ */
   function onKey(e)  { if (e.key === 'Enter' && !isBusy) send(); }
 
-  function sendChip(btn) {
-    const txt = btn.textContent.replace(/^[\u{1F000}-\u{1FFFF}]|^[\u2600-\u27FF]\s*/u,'').trim();
-    btn.disabled = true;
-    sendMessage(txt);
-  }
-
   function send() {
     const inp = document.getElementById('inp');
     const txt = inp.value.trim();
@@ -876,12 +890,9 @@
         data.message || data.reply || data.output || data.text ||
         'JazakAllah Khair! I received your message.';
 
-      // Clean the [show_checkout] tag from the visible message
       const cleanReply = reply.replace(/\[show_checkout\]/gi, '').trim();
       appendBot(cleanReply);
 
-      // ── CHECKOUT TRIGGER ──
-      // Fires if n8n sends action:"show_checkout" OR agent includes [show_checkout] tag
       if (data.action === 'show_checkout' || /\[show_checkout\]/i.test(reply)) {
         setTimeout(() => appendCheckout(), 700);
       }
@@ -895,11 +906,18 @@
     }
   }
 
+  /* ══════════════════════════════════════════
+     INIT — render opening on page load
+  ══════════════════════════════════════════ */
+  window.addEventListener('DOMContentLoaded', () => {
+    renderOpening();
+    if (window.innerWidth >= 600) document.getElementById('inp').focus();
+  });
+
   window.addEventListener('resize', scrollB);
   document.body.addEventListener('touchmove',(e)=>{
     if (!e.target.closest('.msgs')) e.preventDefault();
   },{ passive: false });
-  if (window.innerWidth >= 600) document.getElementById('inp').focus();
 </script>
 </body>
 </html>
