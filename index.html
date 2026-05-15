@@ -930,7 +930,7 @@
       const cleanReply = reply.replace(/\[show_checkout\]/gi, '').trim();
 
       // Pass webhook options if provided, else undefined (fallback kicks in)
-      appendBot(cleanReply, data.options);
+      appendBot(cleanReply, data.buttons);
 
       if (data.action === 'show_checkout' || /\[show_checkout\]/i.test(reply)) {
         setTimeout(() => appendCheckout(), 700);
